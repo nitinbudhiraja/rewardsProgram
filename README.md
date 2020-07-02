@@ -3,7 +3,7 @@ Deploy this sample application to calculate the reward points earned for each cu
 
 
 
-## Running reward program locally
+## Running reward program locally via command prompt
 Reward program is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application backed by in memory H2 database and built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line:
 
 
@@ -11,6 +11,9 @@ Reward program is a [Spring Boot](https://spring.io/guides/gs/spring-boot) appli
 mvn clean install
 mvn spring-boot:run -Dserver.port=8081
 ```
+
+## Running reward program locally via IDE
+Clone and import the code to IDE and run RewardsApplication class.
 
 ## APIs
 
