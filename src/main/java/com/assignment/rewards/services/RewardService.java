@@ -44,7 +44,7 @@ public class RewardService {
 
                 //To track if we already have rewards point data for the month
                 boolean isMonthEntryFound = false;
-                for(RewardPoint monthlyRewardPoint : monthlyRewardPointsEarned){
+                  for(RewardPoint monthlyRewardPoint : monthlyRewardPointsEarned){
                     if(monthlyRewardPoint.getMonth() == transaction.getTransactionDate().getMonthValue()){
                         updateCustomerMonthlyRewards(transaction, customerRewardPoints, monthlyRewardPoint);
                         isMonthEntryFound = true;
@@ -57,7 +57,8 @@ public class RewardService {
                     addCustomerMonthlyRewards(transaction, customerRewardPoints, monthlyRewardPointsEarned);
                 }
             }else {
-                addCustomerRewards(customerRewardPointsMap, transaction);
+                Reward customerRewards = getCustomerRewards(transaction);
+                customerRewardPointsMap.put(transaction.getCustomerId(), customerRewards);
             }
         });
         return customerRewardPointsMap.values();
@@ -70,26 +71,32 @@ public class RewardService {
      * @param monthlyRewardPoint customer's monthly reward points
      */
     private void updateCustomerMonthlyRewards(Transaction transaction, Reward customerRewardPoints, RewardPoint monthlyRewardPoint) {
-        Long earnedPoints = monthlyRewardPoint.getPoints() + calculateReward(transaction.getAmount());
-        Long totalEarnedPoints = customerRewardPoints.getTotalRewardPoints() + calculateReward(transaction.getAmount());
+        Long earnedPoints = calculateReward(transaction.getAmount());
+
+        Long monthlyEarnedPoints = monthlyRewardPoint.getPoints() + earnedPoints;
+        monthlyRewardPoint.setPoints(monthlyEarnedPoints);
+
+        Long totalEarnedPoints = customerRewardPoints.getTotalRewardPoints() + earnedPoints;
         customerRewardPoints.setTotalRewardPoints(totalEarnedPoints);
-        monthlyRewardPoint.setPoints(earnedPoints);
     }
 
     /**
-     * Method to add rewards for customer for which we don't already have reward points
-     * @param customerRewardPointsMap customer's existing reward points
+     * Method to get initial rewards for customer for which we don't already have reward points
      * @param transaction transaction data
      */
-    private void addCustomerRewards(Map<Long, Reward> customerRewardPointsMap, Transaction transaction) {
+    private Reward getCustomerRewards(Transaction transaction) {
         Reward customerReward = new Reward();
         customerReward.setCustomerId(transaction.getCustomerId());
+
+        Long earnedPoints = calculateReward(transaction.getAmount());
+
         List<RewardPoint> rewardPointsEarned = new ArrayList<>();
-        RewardPoint rewardPoint = new RewardPoint(calculateReward(transaction.getAmount()), transaction.getTransactionDate().getMonthValue());
+        RewardPoint rewardPoint = new RewardPoint(earnedPoints, transaction.getTransactionDate().getMonthValue());
         rewardPointsEarned.add(rewardPoint);
         customerReward.setMonthlyRewardPoints(rewardPointsEarned);
-        customerReward.setTotalRewardPoints(calculateReward(transaction.getAmount()));
-        customerRewardPointsMap.put(transaction.getCustomerId(), customerReward);
+
+        customerReward.setTotalRewardPoints(earnedPoints);
+        return customerReward;
     }
 
     /**
@@ -99,8 +106,9 @@ public class RewardService {
      * @param monthlyRewardPointsEarned customer's monthly reward points
      */
     private void addCustomerMonthlyRewards(Transaction transaction, Reward customerRewardPoints, List<RewardPoint> monthlyRewardPointsEarned) {
-        RewardPoint rewardPoint = new RewardPoint(calculateReward(transaction.getAmount()), transaction.getTransactionDate().getMonthValue());
+        Long earnedPoints = calculateReward(transaction.getAmount());
+        RewardPoint rewardPoint = new RewardPoint(earnedPoints, transaction.getTransactionDate().getMonthValue());
         monthlyRewardPointsEarned.add(rewardPoint);
-        customerRewardPoints.setTotalRewardPoints(customerRewardPoints.getTotalRewardPoints() + calculateReward(transaction.getAmount()));
+        customerRewardPoints.setTotalRewardPoints(customerRewardPoints.getTotalRewardPoints() + earnedPoints);
     }
 }
