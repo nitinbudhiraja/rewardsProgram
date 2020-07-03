@@ -25,6 +25,18 @@ Application can be used to Add Transactions for customer and View reward points 
 
 <img width="1127" alt="Capture2" src="https://user-images.githubusercontent.com/7859008/86426790-66df0280-bc9d-11ea-9f6e-f42fb171a2f3.PNG">
 
+**Form Validations**
+
+* Customer Id : 
+  * Required
+  * Numeric
+* Purchase Amount : 
+  * Require
+  * Numeric
+* Transaction date : 
+  * Required
+  * Date picker
+
 **2 : View Customer Rewards screen** : *This [screen](http://localhost:8081/rewards/getRewards) displays the  monthly and total reward points earned by all customers in last 3 months.*
 
 <img width="1127" alt="Get rewards" src="https://user-images.githubusercontent.com/7859008/86426941-cf2de400-bc9d-11ea-9206-45b3e41bcefa.PNG">
