@@ -3,11 +3,11 @@ package com.assignment.rewards.controller;
 import com.assignment.rewards.services.RewardService;
 import com.assignment.rewards.beans.Reward;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,11 @@ public class RewardController {
     private RewardService rewardService;
 
     @RequestMapping(value = "/getRewards", method = RequestMethod.GET)
-    public ResponseEntity<List<Reward>> getRewards(){
+    public ModelAndView getRewards(Model model){
         List<Reward> rewardList = new ArrayList<>(rewardService.getRewards());
-        return new ResponseEntity<>(rewardList, HttpStatus.OK);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("rewards", rewardList);
+        mav.setViewName("show-rewards");
+        return mav;
     }
 }

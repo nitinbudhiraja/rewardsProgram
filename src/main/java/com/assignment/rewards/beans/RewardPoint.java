@@ -2,12 +2,12 @@ package com.assignment.rewards.beans;
 
 public class RewardPoint {
     private Long points;
-    private Integer month;
+    private String month;
 
     public RewardPoint() {
     }
 
-    public RewardPoint(Long points, Integer month) {
+    public RewardPoint(Long points, String month) {
         this.points = points;
         this.month = month;
     }
@@ -20,11 +20,11 @@ public class RewardPoint {
         this.points = points;
     }
 
-    public Integer getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 

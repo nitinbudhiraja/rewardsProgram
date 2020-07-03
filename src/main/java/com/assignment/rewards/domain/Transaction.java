@@ -1,7 +1,6 @@
 package com.assignment.rewards.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,9 +10,10 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long transactionId;
     private Long amount;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate transactionDate;
     private Long customerId;
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 
 import static com.assignment.rewards.utils.RewardUtils.*;
@@ -45,7 +46,7 @@ public class RewardService {
                 //To track if we already have rewards point data for the month
                 boolean isMonthEntryFound = false;
                   for(RewardPoint monthlyRewardPoint : monthlyRewardPointsEarned){
-                    if(monthlyRewardPoint.getMonth() == transaction.getTransactionDate().getMonthValue()){
+                    if(Month.valueOf(monthlyRewardPoint.getMonth()).getValue() == transaction.getTransactionDate().getMonthValue()){
                         updateCustomerMonthlyRewards(transaction, customerRewardPoints, monthlyRewardPoint);
                         isMonthEntryFound = true;
                         break;
@@ -91,7 +92,7 @@ public class RewardService {
         Long earnedPoints = calculateReward(transaction.getAmount());
 
         List<RewardPoint> rewardPointsEarned = new ArrayList<>();
-        RewardPoint rewardPoint = new RewardPoint(earnedPoints, transaction.getTransactionDate().getMonthValue());
+        RewardPoint rewardPoint = new RewardPoint(earnedPoints, Month.of(transaction.getTransactionDate().getMonthValue()).toString());
         rewardPointsEarned.add(rewardPoint);
         customerReward.setMonthlyRewardPoints(rewardPointsEarned);
 
@@ -107,7 +108,7 @@ public class RewardService {
      */
     private void addCustomerMonthlyRewards(Transaction transaction, Reward customerRewardPoints, List<RewardPoint> monthlyRewardPointsEarned) {
         Long earnedPoints = calculateReward(transaction.getAmount());
-        RewardPoint rewardPoint = new RewardPoint(earnedPoints, transaction.getTransactionDate().getMonthValue());
+        RewardPoint rewardPoint = new RewardPoint(earnedPoints, Month.of(transaction.getTransactionDate().getMonthValue()).toString());
         monthlyRewardPointsEarned.add(rewardPoint);
         customerRewardPoints.setTotalRewardPoints(customerRewardPoints.getTotalRewardPoints() + earnedPoints);
     }
