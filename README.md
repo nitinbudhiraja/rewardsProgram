@@ -15,28 +15,17 @@ mvn spring-boot:run -Dserver.port=8081
 ## Running reward program locally via IDE
 Clone and import the code to IDE and run RewardsApplication class.
 
-## APIs
+## Usage
+Application can be used to Add Transactions for customer and View reward points for customers.
 
-**1 : Transaction Add API** : *This Api adds trancation data to data store.*
+**1 : Add Transaction screen** : *This is the [home page](http://localhost:8081/home) and provides UI to adds trancation data.*
 
-`curl -X POST "http://localhost:8081/transactions/add" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"amount\": 100, \"customerId\": 202, \"transactionDate\": \"2020-02-06\"}"`
-
-**2 : Rewards Get API** : *This Api gets the reward point earned by all customers in last 3 months.*
-
-`curl -X GET "http://localhost:8081/rewards/getRewards" -H "accept: */*"`
-
-## Swagger (Api documentation)
-
-Application is intergated with [Swagger](https://swagger.io/) You can then access rewards program Api's here: http://localhost:8081/swagger-ui.html
+<img width="1127" alt="Capture1" src="https://user-images.githubusercontent.com/7859008/86426727-37c89100-bc9d-11ea-86f8-f0d03442e2ef.PNG">
 
 
+<img width="1127" alt="Capture2" src="https://user-images.githubusercontent.com/7859008/86426790-66df0280-bc9d-11ea-9f6e-f42fb171a2f3.PNG">
 
-<img width="1042" alt="swagger-main" src="https://user-images.githubusercontent.com/7859008/86301944-16dc3f00-bbbc-11ea-8bdb-2cf5b85b3c80.PNG">
+**2 : View Customer Rewards screen** : *This [screen](http://localhost:8081/rewards/getRewards) displays the  monthly and total reward points earned by all customers in last 3 months.*
 
-*Select the Api and click "Try it out" to access the APIs*
+<img width="1127" alt="Get rewards" src="https://user-images.githubusercontent.com/7859008/86426941-cf2de400-bc9d-11ea-9206-45b3e41bcefa.PNG">
 
-**Transaction Add**
-<img width="1095" alt="Transaction-add-swagger" src="https://user-images.githubusercontent.com/7859008/86302883-f661b400-bbbe-11ea-8249-2cd4b9dc4e0e.PNG">
-
-**Rewards Get**
-<img width="1066" alt="Rewards-get-swagger" src="https://user-images.githubusercontent.com/7859008/86302886-f82b7780-bbbe-11ea-9b1a-cb4729c613cc.PNG">
