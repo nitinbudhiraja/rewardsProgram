@@ -1,5 +1,5 @@
 # Rewards Sample Application 
-Deploy this sample application to calculate the reward points earned for each customer per month and total. 
+Deploy this sample application to add trsanactions and calculate the reward points earned for each customer per month and total. 
 
 
 
