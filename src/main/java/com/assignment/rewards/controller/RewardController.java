@@ -20,7 +20,9 @@ public class RewardController {
     private RewardService rewardService;
 
     @RequestMapping(value = "/getRewards", method = RequestMethod.GET)
-    public ModelAndView getRewards(Model model){
+    public ModelAndView getRewards(
+
+    ){
         List<Reward> rewardList = new ArrayList<>(rewardService.getRewards());
         ModelAndView mav = new ModelAndView();
         mav.addObject("rewards", rewardList);
